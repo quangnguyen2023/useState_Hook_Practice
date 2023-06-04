@@ -2,10 +2,20 @@ import React, { useState } from "react";
 
 function App() {
   const [currentTime, setCurrentTime] = useState("TIME");
+  const [intervalId, setIntervalId] = useState(null);
 
   const getTime = () => {
-    const newTime = new Date().toLocaleTimeString();
-    setCurrentTime(newTime);
+    setCurrentTime(new Date().toLocaleTimeString());
+
+    if (intervalId) {
+      clearInterval(intervalId);
+    }
+
+    const newIntervalId = setInterval(() => {
+      setCurrentTime(new Date().toLocaleTimeString());
+    }, 1000);
+
+    setIntervalId(newIntervalId);
   };
 
   return (
